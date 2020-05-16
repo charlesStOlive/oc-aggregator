@@ -1,0 +1,44 @@
+<?= Form::open() ?>
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="popup">×</button>
+    <h4 class="modal-title">
+        Aggreger des données
+    </h4>
+</div>
+
+<div class="modal-body">
+    <div class="form-group checkboxlist-field span-right is-required">
+        <label>Que souhaitez vous aggreger</label>
+        <p class="help-block before-field">What cars would you like in your garage?</p>
+
+        <div class="checkbox custom-checkbox">
+            <input id="checkbox-example1" name="checkbox" value="1" type="checkbox">
+            <label class="choice" for="checkbox-example1"> Dodge Viper</label>
+            <p class="help-block">Do not send new comment notifications.</p>
+        </div>
+        <div class="checkbox custom-checkbox">
+            <input checked="checked" id="checkbox-example2" name="checkbox" value="2" type="checkbox">
+            <label class="choice" for="checkbox-example2"> GM Corvette</label>
+            <p class="help-block">Send new comment notifications only to post author.</p>
+        </div>
+        <div class="checkbox custom-checkbox">
+            <input id="checkbox-example3" name="checkbox" value="3" type="checkbox">
+            <label class="choice" for="checkbox-example3"> Porsche Boxter</label>
+            <p class="help-block">Notify all users who have permissions to receive blog notifications.</p>
+        </div>
+    </div>
+</div>
+
+<div class="modal-footer">
+    <button type="submit" data-request="onAggregateValidation" data-request-data="redirect:0, id:<?=$modelId?>"
+        data-hotkey="ctrl+s, cmd+s" data-popup-load-indicator class="btn btn-primary">
+        Valider
+    </button>
+
+    <button type="button" class="btn btn-default" data-dismiss="popup">
+        Annuler
+    </button>
+</div>
+
+<?= Form::close() ?>

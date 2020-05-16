@@ -1,0 +1,31 @@
+# ===================================
+#  Form Behavior Config
+# ===================================
+
+# Record name
+name: Ag Year
+
+# Model Form Field configuration
+form: $/waka/agg/models/agyear/fields.yaml
+
+# Model Class name
+modelClass: Waka\Agg\Models\AgYear
+
+# Default redirect location
+defaultRedirect: waka/agg/agyears
+
+# Create page
+create:
+    title: Create Ag Year
+    redirect: waka/agg/agyears/update/:id
+    redirectClose: waka/agg/agyears
+
+# Update page
+update:
+    title: Edit Ag Year
+    redirect: waka/agg/agyears
+    redirectClose: waka/agg/agyears
+
+# Preview page
+preview:
+    title: Preview Ag Year

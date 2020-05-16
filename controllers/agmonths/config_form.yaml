@@ -1,0 +1,31 @@
+# ===================================
+#  Form Behavior Config
+# ===================================
+
+# Record name
+name: Ag Month
+
+# Model Form Field configuration
+form: $/waka/agg/models/agmonth/fields.yaml
+
+# Model Class name
+modelClass: Waka\Agg\Models\AgMonth
+
+# Default redirect location
+defaultRedirect: waka/agg/agmonths
+
+# Create page
+create:
+    title: Create Ag Month
+    redirect: waka/agg/agmonths/update/:id
+    redirectClose: waka/agg/agmonths
+
+# Update page
+update:
+    title: Edit Ag Month
+    redirect: waka/agg/agmonths
+    redirectClose: waka/agg/agmonths
+
+# Preview page
+preview:
+    title: Preview Ag Month

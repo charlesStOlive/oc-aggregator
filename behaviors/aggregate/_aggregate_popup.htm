@@ -1,0 +1,35 @@
+<?= Form::open() ?>
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="popup">×</button>
+    <h4 class="modal-title">
+        Aggreger des données
+    </h4>
+</div>
+
+<div class="modal-body">
+    <div class="callout fade in callout-info">
+        <div class="header">
+            <i class="icon-info"></i>
+            <h3>Aggregation multiples</h3>
+            <p>L'aggregation de multiples lignes peut prendre du temps.
+                Le calcul s'effectuera en tache de fond.
+                Nombre de calculs à lancer : <?=$nbChecked?></p>
+        </div>
+    </div>
+
+
+</div>
+
+<div class="modal-footer">
+    <button type="submit" data-request="onAggregateValidation" data-request-data="redirect:0, checked:<?=$checked?>"
+        data-hotkey="ctrl+s, cmd+s" data-popup-load-indicator class="btn btn-primary">
+        Valider
+    </button>
+
+    <button type="button" class="btn btn-default" data-dismiss="popup">
+        Annuler
+    </button>
+</div>
+
+<?= Form::close() ?>

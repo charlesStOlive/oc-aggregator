@@ -1,0 +1,6 @@
+1.0.1: 
+  - 'First version of agg'
+  - create_months_table.php
+  - create_weeks_table.php
+  - create_years_table.php
+  - create_aggregables_table.php

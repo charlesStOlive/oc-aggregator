@@ -1,0 +1,25 @@
+# ===================================
+#  List Column Definitions
+# ===================================
+
+columns:
+    name: 
+        label: waka.agg::lang.global.name
+    ag_year:
+        label: waka.agg::lang.global.ag_year
+    data_source:
+        label: waka.agg::lang.global.data_source
+        relation: data_source
+        select: name
+    nb_l:
+        label: waka.agg::lang.global.nb_l
+        readOnly: true
+    nb:
+        label: waka.agg::lang.global.nb
+        readOnly: true
+    amount:
+        label: waka.agg::lang.global.amount
+        readOnly: true
+    start_at:
+        label: waka.agg::lang.global.start_at
+        invisible: true

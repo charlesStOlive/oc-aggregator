@@ -1,0 +1,31 @@
+# ===================================
+#  Form Behavior Config
+# ===================================
+
+# Record name
+name: Ag Week
+
+# Model Form Field configuration
+form: $/waka/agg/models/agweek/fields.yaml
+
+# Model Class name
+modelClass: Waka\Agg\Models\AgWeek
+
+# Default redirect location
+defaultRedirect: waka/agg/agweeks
+
+# Create page
+create:
+    title: Create Ag Week
+    redirect: waka/agg/agweeks/update/:id
+    redirectClose: waka/agg/agweeks
+
+# Update page
+update:
+    title: Edit Ag Week
+    redirect: waka/agg/agweeks
+    redirectClose: waka/agg/agweeks
+
+# Preview page
+preview:
+    title: Preview Ag Week
