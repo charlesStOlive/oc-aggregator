@@ -12,7 +12,7 @@ class CreateMonthsTable extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->string('name');
-            $table->boolean('is_reday')->default(false);
+            $table->boolean('is_ready')->default(false);
             $table->integer('ag_month')->unsigned();
             $table->integer('ag_year')->unsigned();
             $table->integer('data_source_id')->unsigned();

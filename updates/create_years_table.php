@@ -13,7 +13,7 @@ class CreateYearsTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->integer('ag_year');
-            $table->boolean('is_reday')->default(false);
+            $table->boolean('is_ready')->default(false);
             $table->integer('data_source_id')->unsigned();
             $table->integer('nb_l')->nullable();
             $table->integer('nb')->nullable();
