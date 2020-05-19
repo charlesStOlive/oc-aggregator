@@ -8,21 +8,34 @@
 </div>
 
 <div class="modal-body">
+    <input type="hidden" name="aggregateClass" value="<?= $aggregateClass ?>" />
     <div class="callout fade in callout-info">
         <div class="header">
             <i class="icon-info"></i>
-            <h3>Aggregation multiples</h3>
-            <p>L'aggregation de multiples lignes peut prendre du temps.
-                Le calcul s'effectuera en tache de fond.
-                Nombre de calculs à lancer : <?=$nbChecked?></p>
+            <h3>Aggregation sur une periode</h3>
         </div>
+    </div>
+    <div class="radio custom-radio">
+        <input name="typeLot" value="month" type="radio" id="radio_1">
+        <label for="radio_1">Mois en cours</label>
+        <p class="help-block">Nombres de lignes :<?=$countMonth?> </p>
+    </div>
+    <div class="radio custom-radio">
+        <input checked="checked" name="typeLot" value="3month" type="radio" id="radio_2">
+        <label for="radio_2">3 derniers mois</label>
+        <p class="help-block">Nombres de lignes :<?=$count3Month?> </p>
+    </div>
+    <div class="radio custom-radio">
+        <input name="typeLot" value="6month" type="radio" id="radio_3">
+        <label for="radio_3">6 derniers mois</label>
+        <p class="help-block">Nombres de lignes :<?=$count6Month?> </p>
     </div>
 
 
 </div>
 
 <div class="modal-footer">
-    <button type="submit" data-request="onAggregateValidation" data-request-data="redirect:0, checked:<?=$checked?>"
+    <button type="submit" data-request="onAggregateValidation" data-request-data="redirect:0"
         data-hotkey="ctrl+s, cmd+s" data-popup-load-indicator class="btn btn-primary">
         Valider
     </button>

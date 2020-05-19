@@ -33,6 +33,7 @@ return [
         'nb' => "Nb",
         'amount' => "Montant",
         'mb' => "Montant",
+        'is_ready' => "Pret",
 
     ],
     'popup' => [
