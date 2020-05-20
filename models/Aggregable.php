@@ -42,7 +42,7 @@ class Aggregable extends Model
     /**
      * @var array Attributes to be appended to the API representation of the model (ex. toArray())
      */
-    protected $appends = ['shortName'];
+    protected $appends = ['shortName', 'firstName'];
 
     /**
      * @var array Attributes to be removed from the API representation of the model (ex. toArray())
@@ -93,6 +93,18 @@ class Aggregable extends Model
         }
         if ($this->periodeable_type == 'Waka\Agg\Models\AgWeek') {
             return $this->periodeable->ag_year . '/' . $this->periodeable->ag_week;
+        }
+    }
+    public function getFirstNameAttribute()
+    {
+        if ($this->periodeable_type == 'Waka\Agg\Models\AgMonth') {
+            return $this->periodeable->ag_month;
+        }
+        if ($this->periodeable_type == 'Waka\Agg\Models\AgYear') {
+            return $this->periodeable->ag_year;
+        }
+        if ($this->periodeable_type == 'Waka\Agg\Models\AgWeek') {
+            return $this->periodeable->ag_week;
         }
     }
 
