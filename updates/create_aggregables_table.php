@@ -19,6 +19,7 @@ class CreateAggregablesTable extends Migration
             $table->double('avg')->nullable();
             $table->double('amount')->nullable();
             $table->text('datas')->nullable();
+            $table->date('start_at')->nullable();
             $table->date('end_at')->nullable();
             $table->timestamps();
         });

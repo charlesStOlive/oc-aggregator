@@ -42,7 +42,7 @@ class Aggregable extends Model
     /**
      * @var array Attributes to be appended to the API representation of the model (ex. toArray())
      */
-    protected $appends = [];
+    protected $appends = ['shortName'];
 
     /**
      * @var array Attributes to be removed from the API representation of the model (ex. toArray())
@@ -55,6 +55,8 @@ class Aggregable extends Model
     protected $dates = [
         'created_at',
         'updated_at',
+        'start_at',
+        'end_at',
     ];
 
     /**
@@ -73,9 +75,25 @@ class Aggregable extends Model
     public $attachOne = [];
     public $attachMany = [];
 
+    /**
+     *
+     */
     public function getNameFromAttribute()
     {
         return $this->periodeable->name;
+    }
+
+    public function getShortNameAttribute()
+    {
+        if ($this->periodeable_type == 'Waka\Agg\Models\AgMonth') {
+            return $this->periodeable->ag_year . '/' . $this->periodeable->ag_month;
+        }
+        if ($this->periodeable_type == 'Waka\Agg\Models\AgYear') {
+            return $this->periodeable->ag_year;
+        }
+        if ($this->periodeable_type == 'Waka\Agg\Models\AgWeek') {
+            return $this->periodeable->ag_year . '/' . $this->periodeable->ag_week;
+        }
     }
 
     public function scopeMonths($query)
