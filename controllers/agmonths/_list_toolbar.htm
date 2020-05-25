@@ -1,7 +1,9 @@
+<?php if ($this->user->hasAccess('waka.cloudis.admin')): ?>
 <div data-control="toolbar">
     <a href="<?= Backend::url('waka/agg/agmonths/create') ?>" class="btn btn-primary oc-icon-plus">
-        New Ag Month
+        Nouvelle aggrégation mensuel
     </a>
+    
 
     <button class="btn btn-danger oc-icon-trash-o" disabled="disabled"
         onclick="$(this).data('request-data', { checked: $('.control-list').listWidget('getChecked') })"
@@ -24,3 +26,4 @@
         Aggregation periodique
     </button>
 </div>
+<?php endif ?>

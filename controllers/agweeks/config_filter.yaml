@@ -1,0 +1,24 @@
+# ===================================
+# Filter Scope Definitions
+# ===================================
+
+scopes:
+    type:
+        label: Type
+        modelClass: Waka\utils\Models\DataSource
+        nameFrom: name
+        conditions: data_source_id in (:filtered)
+
+    years:
+        label: Année
+        type: number
+        conditions: ag_year = :filtered
+        size: 1
+
+    weeks:
+        label: Semaines
+        type: number
+        conditions: ag_week = :filtered
+        size: 1
+
+

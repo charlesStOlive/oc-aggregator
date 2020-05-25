@@ -65,12 +65,18 @@ class Plugin extends PluginBase
      */
     public function registerPermissions()
     {
-        return []; // Remove this line to activate
-
         return [
-            'waka.agg.some_permission' => [
-                'tab' => 'agg',
-                'label' => 'Some permission',
+            'waka.agg.admin.super' => [
+                'tab' => 'Waka - Aggregateur',
+                'label' => 'Super Administrateur des aggrégations',
+            ],
+            'waka.agg.admin.base' => [
+                'tab' => 'Waka - Aggregateur',
+                'label' => 'Administrateur des aggrégations',
+            ],
+            'waka.agg.user' => [
+                'tab' => 'Waka - Aggregateur',
+                'label' => 'Utilisateur des aggrégations',
             ],
         ];
     }
@@ -92,8 +98,8 @@ class Plugin extends PluginBase
                 'label' => Lang::get('waka.agg::lang.menu.title'),
                 'url' => Backend::url('waka/agg/agmonths'),
                 'icon' => 'icon-line-chart',
-                'permissions' => ['waka.crsm.*'],
-                'order' => 001,
+                'permissions' => ['waka.agg.*'],
+                'order' => 002,
                 'sideMenu' => [
                     'side-menu-years' => [
                         'label' => Lang::get('waka.agg::lang.menu.agyears'),
@@ -109,7 +115,6 @@ class Plugin extends PluginBase
                         'label' => Lang::get('waka.agg::lang.menu.agweeks'),
                         'icon' => 'icon-hourglass-o',
                         'url' => Backend::url('waka/agg/agweeks'),
-                        'permissions' => ['waka.crsm.admin'],
                     ],
                 ],
             ],

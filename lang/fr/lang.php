@@ -14,6 +14,7 @@ return [
     ],
     'global' => [
         'name' => 'Nom ',
+        'periode' => 'Periode',
         'name_co' => "Vous pouvez laisser le champ vide, dans ce cas, Le nom sera automatiquement crée",
         'slug' => 'Slug',
         'auto_create' => 'Création automatique',

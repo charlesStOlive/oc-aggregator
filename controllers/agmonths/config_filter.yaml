@@ -1,0 +1,23 @@
+# ===================================
+# Filter Scope Definitions
+# ===================================
+
+scopes:
+    type:
+        label: Type
+        scope: tagFilter
+        modelClass: Waka\utils\Models\DataSource
+        nameFrom: name
+        conditions: data_source_id in (:filtered)
+
+    years:
+        label: Année
+        type: number
+        conditions: ag_year = :filtered
+        size: 1
+
+    months:
+        label: Mois
+        type: number
+        conditions: ag_month = :filtered
+        size: 1

@@ -1,6 +1,7 @@
+<?php if ($this->user->hasAccess('waka.agg.admin')): ?>
 <div data-control="toolbar">
     <a href="<?= Backend::url('waka/agg/agweeks/create') ?>" class="btn btn-primary oc-icon-plus">
-        New Ag Week
+        Nouvelle aggrégation hebdomadaire
     </a>
 
     <button class="btn btn-danger oc-icon-trash-o" disabled="disabled"

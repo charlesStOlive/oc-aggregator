@@ -1,6 +1,7 @@
+<?php if ($this->user->hasAccess('waka.agg.admin')): ?>
 <div data-control="toolbar">
     <a href="<?= Backend::url('waka/agg/agyears/create') ?>" class="btn btn-primary oc-icon-plus">
-        New Ag Year
+        Nouvelle aggrégation annuel
     </a>
 
     <button class="btn btn-danger oc-icon-trash-o" disabled="disabled"
@@ -24,3 +25,4 @@
         Aggregation periodique
     </button>
 </div>
+<?php endif ?>
