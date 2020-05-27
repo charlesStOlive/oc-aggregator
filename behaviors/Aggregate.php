@@ -45,11 +45,13 @@ class Aggregate extends ControllerBehavior
         $count3Month = $class::whereDate('end_at', '>=', $date3)->count();
         $date6 = Carbon::now()->subMonth(6)->format('Y-m-d');
         $count6Month = $class::whereDate('end_at', '>=', $date6)->count();
+        $countAll = $class::count();
 
         $this->vars['countMonth'] = $countMonth;
         $this->vars['count3Month'] = $count3Month;
         $this->vars['count6Month'] = $count6Month;
         $this->vars['aggregateClass'] = $aggregateClass;
+        $this->vars['countAll'] = $countAll;
         return $this->makePartial('$/waka/agg/behaviors/aggregate/_aggregate_popup.htm');
 
     }
@@ -75,13 +77,13 @@ class Aggregate extends ControllerBehavior
         }
         if (!$date) {
             // si pas de date on reinitialise tout.
-            $class->update(['is_ready', false]);
+            $class::whereDate('end_at', '>=', '1999-01-01')->update(['is_ready' => false]);
         } else {
             $class::whereDate('end_at', '>=', $date)->update(['is_ready' => false]);
         }
         $modelsToAggregate = $class::where('is_ready', false)->get();
         foreach ($modelsToAggregate as $model) {
-            trace_log($model->id);
+            //trace_log($model->id);
             $this->onAggregateOne($model->id, $aggregateClass, $model->data_source->agg_class);
         }
 
