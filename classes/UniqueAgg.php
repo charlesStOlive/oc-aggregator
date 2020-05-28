@@ -41,7 +41,11 @@ class UniqueAgg
         // trace_log($this->modelAgg->ag_year . ' : ' . $year);
         // trace_log($this->modelAgg->ag_week . ' : ' . $week);
 
-        if ($this->classAgg == 'Waka\Agg\Models\AgYear') {
+        $authorisedAgg = new $this->targetAgg;
+        $authorisedAgg = $authorisedAgg::first()->agg;
+        trace_log($authorisedAgg);
+
+        if ($this->classAgg == 'Waka\Agg\Models\AgYear' && array_key_exists('year', $authorisedAgg)) {
             if ($this->modelAgg->ag_year == $year) {
                 trace_log("on update le year");
                 $this->update('year_');
@@ -50,14 +54,14 @@ class UniqueAgg
                 $this->update('year_', '_m');
             }
         }
-        if ($this->classAgg == 'Waka\Agg\Models\AgMonth') {
+        if ($this->classAgg == 'Waka\Agg\Models\AgMonth' && array_key_exists('month', $authorisedAgg)) {
             if (($this->modelAgg->ag_month == $month) && ($this->modelAgg->ag_year == $year)) {
                 $this->update('month_');
             } else if (($this->modelAgg->ag_month == $month - 1) && ($this->modelAgg->ag_year == $year)) {
                 $this->update('month_', '_m');
             }
         }
-        if ($this->classAgg == 'Waka\Agg\Models\AgWeek') {
+        if ($this->classAgg == 'Waka\Agg\Models\AgWeek' && array_key_exists('week', $authorisedAgg)) {
             if (($this->modelAgg->ag_week == $week) && ($this->modelAgg->ag_year == $year)) {
                 $this->update('week_');
             } else if (($this->modelAgg->ag_week == $week - 1) && ($this->modelAgg->ag_year == $year)) {
@@ -69,9 +73,6 @@ class UniqueAgg
 
     public function update($prefix, $suffix = null)
     {
-        //Creer les nouvelles lignes si besoin.
-        //trace_log("création des unique si manquant");
-        $this->createNewUnique();
 
         //Reinitialiser à 0 les valeurs de l'aggregation
         //trace_log("remise à 0 des élements");
@@ -93,15 +94,10 @@ class UniqueAgg
             $targetId = $aggregation->aggregable->id;
             $targetClass = new $this->targetAgg;
             $target = $targetClass::find($targetId);
-            $datas = null;
-            if ($aggregation->datas) {
-                $datas = json_encode($aggregation->datas ?? null);
-            }
             //trace_log("ok update");
-            $target->uniqueable()->update([
+            $target->update([
                 $prefix . 'nb' . $suffix => $aggregation->nb ?? 0,
                 $prefix . 'ms' . $suffix => $aggregation->amount ?? 0,
-                $prefix . 'datas' . $suffix => $datas,
             ]);
             //trace_log($target->uniqueable);
         }
@@ -135,47 +131,45 @@ class UniqueAgg
 
     }
 
-    public function createNewUnique()
-    {
-        $targetModel = new $this->targetAgg;
-        $targetClassName = $targetModel->getMorphClass();
+    // public function createNewUnique()
+    // {
+    //     $targetModel = new $this->targetAgg;
+    //     $targetClassName = $targetModel->getMorphClass();
 
-        //trace_log('calcul des relations manquantes');
-        $emptyRelation = $this->targetAgg::doesnthave('uniqueable');
-        if (!$emptyRelation->count()) {
-            //Il ne manque pas de relation on termine
-            //trace_log("Il ne manque pas de relation");
-            return;
-        }
-        $emptyRelation = $emptyRelation->get();
+    //     //trace_log('calcul des relations manquantes');
+    //     $emptyRelation = $this->targetAgg::doesnthave('uniqueable');
+    //     if (!$emptyRelation->count()) {
+    //         //Il ne manque pas de relation on termine
+    //         //trace_log("Il ne manque pas de relation");
+    //         return;
+    //     }
+    //     $emptyRelation = $emptyRelation->get();
 
-        foreach ($emptyRelation->chunk(2000) as $modelGroup) {
-            $updates = [];
-            //trace_log('--begin---------------------------------------------------');
-            foreach ($modelGroup as $newTarget) {
-                //trace_log($newTarget->id);
-                array_push($updates, [
-                    "uniqueable_type" => $targetClassName,
-                    "uniqueable_id" => $newTarget->id,
-                ]);
-            }
-            //trace_log('--insert--------------------------------------------------');
-            \Waka\Agg\Models\UniqueAgg::insert($updates);
-        }
-    }
+    //     foreach ($emptyRelation->chunk(2000) as $modelGroup) {
+    //         $updates = [];
+    //         //trace_log('--begin---------------------------------------------------');
+    //         foreach ($modelGroup as $newTarget) {
+    //             //trace_log($newTarget->id);
+    //             array_push($updates, [
+    //                 "uniqueable_type" => $targetClassName,
+    //                 "uniqueable_id" => $newTarget->id,
+    //             ]);
+    //         }
+    //         //trace_log('--insert--------------------------------------------------');
+    //         \Waka\Agg\Models\UniqueAgg::insert($updates);
+    //     }
+    // }
 
     public function setAggtoNull($prefix, $suffix)
     {
         $targetModel = new $this->targetAgg;
-        $targetClassName = $targetModel->getMorphClass();
+        //$targetClassName = $targetModel->getMorphClass();
         $columnToCheck = $prefix . 'nb' . $suffix;
 
-        $modelToZero = \Waka\Agg\Models\UniqueAgg::where("uniqueable_type", $targetClassName)
-            ->where($columnToCheck, '<>', 0)
+        $modelToZero = $targetModel::where($columnToCheck, '<>', 0)
             ->update([
                 $prefix . 'nb' . $suffix => 0,
                 $prefix . 'ms' . $suffix => 0,
-                $prefix . 'datas' . $suffix => null,
             ]);
     }
 

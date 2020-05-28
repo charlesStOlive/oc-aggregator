@@ -4,6 +4,3 @@
   - create_weeks_table.php
   - create_years_table.php
   - create_aggregables_table.php
-1.0.2:
-  - 'Create unique values'
-  - create_unique_aggs_table.php
