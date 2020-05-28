@@ -60,31 +60,48 @@ class Aggregate extends ControllerBehavior
     {
         $typeLot = post('typeLot');
         $aggregateClass = post('aggregateClass');
+        $cross = post('cross');
 
         trace_log("typeLot : " . $typeLot);
         trace_log("aggregateClass : " . $aggregateClass);
+        trace_log("cross : " . $cross);
 
         $class = new $aggregateClass;
         $date = null;
         if ($typeLot == 'month') {
             $date = Carbon::now()->format('Y-m-d');
         }
-        if ($typeLot == '3month') {
-            $date = Carbon::now()->subMonth(3)->format('Y-m-d');
+        if ($typeLot == '2month') {
+            $date = Carbon::now()->subMonth(2)->format('Y-m-d');
         }
         if ($typeLot == '6month') {
             $date = Carbon::now()->subMonth(6)->format('Y-m-d');
         }
         if (!$date) {
-            // si pas de date on reinitialise tout.
-            $class::whereDate('end_at', '>=', '1999-01-01')->update(['is_ready' => false]);
-        } else {
-            $class::whereDate('end_at', '>=', $date)->update(['is_ready' => false]);
+            $date = '1999-01-01';
         }
-        $modelsToAggregate = $class::where('is_ready', false)->get();
-        foreach ($modelsToAggregate as $model) {
-            //trace_log($model->id);
-            $this->onAggregateOne($model->id, $aggregateClass, $model->data_source->agg_class);
+        if (!$cross) {
+            $class::whereDate('end_at', '>=', $date)->update(['is_ready' => false]);
+            $modelsToAggregate = $class::where('is_ready', false)->get();
+            foreach ($modelsToAggregate as $model) {
+                $this->onAggregateOne($model->id, $aggregateClass, $model->data_source->agg_class);
+            }
+        } else {
+            \Waka\Agg\Models\AgYear::whereDate('end_at', '>=', $date)->update(['is_ready' => false]);
+            $modelsToAggregate = \Waka\Agg\Models\AgYear::where('is_ready', false)->get();
+            foreach ($modelsToAggregate as $model) {
+                $this->onAggregateOne($model->id, 'Waka\Agg\Models\AgYear', $model->data_source->agg_class);
+            }
+            \Waka\Agg\Models\AgMonth::whereDate('end_at', '>=', $date)->update(['is_ready' => false]);
+            $modelsToAggregate = \Waka\Agg\Models\AgMonth::where('is_ready', false)->get();
+            foreach ($modelsToAggregate as $model) {
+                $this->onAggregateOne($model->id, 'Waka\Agg\Models\AgMonth', $model->data_source->agg_class);
+            }
+            \Waka\Agg\Models\AgWeek::whereDate('end_at', '>=', $date)->update(['is_ready' => false]);
+            $modelsToAggregate = \Waka\Agg\Models\AgMonth::where('is_ready', false)->get();
+            foreach ($modelsToAggregate as $model) {
+                $this->onAggregateOne($model->id, 'Waka\Agg\Models\AgWeek', $model->data_source->agg_class);
+            }
         }
 
     }

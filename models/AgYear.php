@@ -87,4 +87,9 @@ class AgYear extends Model
         $this->end_at = \Carbon\Carbon::createFromDate($this->ag_year, 12, 31);
 
     }
+
+    public function afterSave()
+    {
+        \Event::fire('agg.update', [$this]);
+    }
 }

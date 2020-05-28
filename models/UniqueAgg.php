@@ -1,20 +1,18 @@
 <?php namespace Waka\Agg\Models;
 
-use Carbon\Carbon;
 use Model;
-use Waka\Utils\Models\DataSource;
 
 /**
- * week Model
+ * UniqueAgg Model
  */
-class AgWeek extends Model
+class UniqueAgg extends Model
 {
     use \October\Rain\Database\Traits\Validation;
 
     /**
      * @var string The database table used by the model.
      */
-    public $table = 'waka_agg_weeks';
+    public $table = 'waka_agg_unique_aggs';
 
     /**
      * @var array Guarded fields
@@ -39,7 +37,7 @@ class AgWeek extends Model
     /**
      * @var array Attributes to be cast to JSON
      */
-    protected $jsonable = [];
+    protected $jsonable = ['year_datas', 'year_datas_m', 'month_datas', 'month_datas_m', 'week_datas', 'week_datas_m'];
 
     /**
      * @var array Attributes to be appended to the API representation of the model (ex. toArray())
@@ -49,7 +47,7 @@ class AgWeek extends Model
     /**
      * @var array Attributes to be removed from the API representation of the model (ex. toArray())
      */
-    protected $hidden = [];
+    protected $hidden = ['year_datas', 'year_datas_m', 'month_datas', 'month_datas_m', 'week_datas', 'week_datas_m'];
 
     /**
      * @var array Attributes to be cast to Argon (Carbon) instances
@@ -57,7 +55,6 @@ class AgWeek extends Model
     protected $dates = [
         'created_at',
         'updated_at',
-        'date_at',
     ];
 
     /**
@@ -65,37 +62,11 @@ class AgWeek extends Model
      */
     public $hasOne = [];
     public $hasMany = [];
-    public $belongsTo = [
-        'data_source' => 'Waka\Utils\Models\DataSource',
-    ];
+    public $belongsTo = [];
     public $belongsToMany = [];
     public $morphTo = [];
     public $morphOne = [];
-    public $morphMany = [
-        'periodeables' => ['Waka\Agg\Models\Aggregable', 'name' => 'periodeable'],
-    ];
+    public $morphMany = [];
     public $attachOne = [];
     public $attachMany = [];
-
-    public function beforeSave()
-    {
-        if (!$this->name) {
-            $ds_name = DataSource::find($this->data_source_id)->name;
-            $this->name = $ds_name . ' ' . $this->ag_year . ' Semaine : ' . $this->ag_week;
-        }
-        Carbon::setWeekStartsAt(Carbon::MONDAY);
-        Carbon::setWeekEndsAt(Carbon::SUNDAY);
-        $dt = \Carbon\Carbon::createFromDate($this->ag_year, 1, 1);
-        $dte = \Carbon\Carbon::createFromDate($this->ag_year, 1, 1);
-        $dt = $dt->startOfWeek();
-        $this->start_at = $dt->addWeeks($this->ag_week - 1);
-        $dte = $dte->endOfWeek();
-        $this->end_at = $dte->addWeeks($this->ag_week - 1);
-    }
-
-    public function afterSave()
-    {
-        //trace(_log("after save");
-        \Event::fire('agg.update', [$this]);
-    }
 }
