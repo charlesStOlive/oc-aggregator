@@ -2,10 +2,10 @@
 
 return [
     'menu' => [
-        'title' => 'Aggregations',
-        'label' => 'Aggregations',
-        'description' => "Gestion des aggregations",
-        'settings' => "Options aggregations",
+        'title' => 'Agrégations',
+        'label' => 'Agrégations',
+        'description' => "Gestion des agrégations",
+        'settings' => "Options agrégations",
         'settings_description' => "Réglage des valeurs par defaut",
         'settings_category' => 'Wakaari outils',
         'agyears' => "Par An",
