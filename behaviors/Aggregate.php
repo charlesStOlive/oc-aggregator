@@ -15,7 +15,7 @@ class Aggregate extends ControllerBehavior
         $modelId = post('modelId');
         $aggregateClass = post('aggregateClass');
 
-        trace_log($aggregateClass);
+        //trace_log($aggregateClass);
 
         $aggregateTyperClass = new $aggregateClass;
         $agg = $aggregateClass::find($modelId);
@@ -62,9 +62,9 @@ class Aggregate extends ControllerBehavior
         $aggregateClass = post('aggregateClass');
         $cross = post('cross');
 
-        trace_log("typeLot : " . $typeLot);
-        trace_log("aggregateClass : " . $aggregateClass);
-        trace_log("cross : " . $cross);
+        //trace_log("typeLot : " . $typeLot);
+        //trace_log("aggregateClass : " . $aggregateClass);
+        //trace_log("cross : " . $cross);
 
         $class = new $aggregateClass;
         $date = null;

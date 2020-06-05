@@ -43,14 +43,14 @@ class UniqueAgg
 
         $authorisedAgg = new $this->targetAgg;
         $authorisedAgg = $authorisedAgg::first()->agg;
-        trace_log($authorisedAgg);
+        //trace_log($authorisedAgg);
 
         if ($this->classAgg == 'Waka\Agg\Models\AgYear' && array_key_exists('year', $authorisedAgg)) {
             if ($this->modelAgg->ag_year == $year) {
-                trace_log("on update le year");
+                //trace_log("on update le year");
                 $this->update('year_');
             } else if ($this->modelAgg->ag_year == $year - 1) {
-                trace_log("on update le year - 1");
+                //trace_log("on update le year - 1");
                 $this->update('year_', '_m');
             }
         }

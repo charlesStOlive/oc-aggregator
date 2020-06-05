@@ -37,7 +37,7 @@ class AgMonths extends Controller
 
     // public function onAggregateChecked()
     // {
-    //     trace_log(post('checked'));
+    //     //trace_log(post('checked'));
     //     $modelIds = post('checked');
     //     foreach ($modelIds as $modelId) {
     //         $this->onAggregateOne($modelId);

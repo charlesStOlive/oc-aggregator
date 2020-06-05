@@ -34,9 +34,9 @@ class CreateAggTable extends Command
 
         $modelId = DataSource::where('name', $model)->first()->id;
 
-        trace_log($startYear);
-        trace_log($endYear);
-        trace_log($model);
+        //trace_log($startYear);
+        //trace_log($endYear);
+        //trace_log($model);
 
         for ($y = $startYear; $y <= $endYear; $y++) {
             $year = new AgYear();
