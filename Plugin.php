@@ -75,15 +75,15 @@ class Plugin extends PluginBase
         return [
             'waka.agg.admin.super' => [
                 'tab' => 'Waka - Aggrégateur',
-                'label' => 'Super Administrateur des aggrégations',
+                'label' => 'Super Administrateur des agrégations',
             ],
             'waka.agg.admin.base' => [
                 'tab' => 'Waka - Aggrégateur',
-                'label' => 'Administrateur des aggrégations',
+                'label' => 'Administrateur des agrégations',
             ],
             'waka.agg.user' => [
                 'tab' => 'Waka - Aggrégateur',
-                'label' => 'Utilisateur des aggrégations',
+                'label' => 'Utilisateur des agrégations',
             ],
         ];
     }
