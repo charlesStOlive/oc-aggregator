@@ -33,6 +33,7 @@ class Aggregate extends ControllerBehavior
         foreach ($checked as $modelId) {
             $this->onAggregateOne($modelId, $aggregateClass);
         }
+        \Flash::info("Le calcul des agrégation est en cours, vous pouvez verifier la progression des calculs dans REGLAGES->TACHES");
     }
 
     public function onAggregateBehaviorPopupForm()
@@ -103,6 +104,7 @@ class Aggregate extends ControllerBehavior
                 $this->onAggregateOne($model->id, 'Waka\Agg\Models\AgWeek', $model->data_source->agg_class);
             }
         }
+        \Flash::info("Le calcul des agrégation est en cours, vous pouvez verifier la progression des calculs dans REGLAGES->TACHES");
 
     }
 

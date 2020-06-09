@@ -4,3 +4,6 @@
   - create_weeks_table.php
   - create_years_table.php
   - create_aggregables_table.php
+1.0.2:
+  - 'Ajout de clefs'
+  - create_aggregables_table_u102.php
