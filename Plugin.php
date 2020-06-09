@@ -44,10 +44,11 @@ class Plugin extends PluginBase
         \Event::listen('agg.update', function ($model) {
             //trace_log("reception de l'event");
             // $uniqueAgg = new \Waka\Agg\Classes\UniqueAgg();
-            // $uniqueAgg->manual($model);
-
-            $jobId = \Queue::push('Waka\Agg\Classes\UniqueAgg@fire', ['classAgg' => get_class($model), 'modelAggId' => $model->id]);
-            \Event::fire('job.create.unique', [$jobId, 'Calcul des valeurs unique' . $model->name]);
+            trace_log('yo');
+            $uniqueAgg = new \Waka\Agg\Classes\UniqueAgg();
+            $uniqueAgg->manual($model);
+            // $jobId = \Queue::push('Waka\Agg\Classes\UniqueAgg@fire', ['classAgg' => get_class($model), 'modelAggId' => $model->id]);
+            // \Event::fire('job.create.unique', [$jobId, 'Calcul des valeurs unique' . $model->name]);
         });
 
     }

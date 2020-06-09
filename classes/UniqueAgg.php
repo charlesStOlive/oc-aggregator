@@ -31,6 +31,7 @@ class UniqueAgg
             \Event::fire('job.end.unique', [$job]);
             $job->delete();
         }
+
     }
 
     public function check()
