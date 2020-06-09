@@ -21,10 +21,14 @@ class UniqueAgg
         $this->classAgg = $datas['classAgg'];
         $this->modelAgg = $this->classAgg::find($datas['modelAggId']);
         $this->targetAgg = $this->modelAgg->data_source->modelClass;
+        if ($job) {
+            \Event::fire('job.start.unique', [$job, null]);
+        }
 
         $this->check();
         \Event::fire('job.aggUnique.done');
         if ($job) {
+            \Event::fire('job.end.unique', [$job]);
             $job->delete();
         }
     }

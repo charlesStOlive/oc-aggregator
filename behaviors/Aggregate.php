@@ -115,7 +115,8 @@ class Aggregate extends ControllerBehavior
             $agg = $aggregateClass::find($modelId);
             $aggClass = $agg->data_source->agg_class;
         }
-        \Queue::push($aggClass . '@fire', ['class' => $aggregateClass, 'modelId' => $modelId]);
+        $jobId = \Queue::push($aggClass . '@fire', ['class' => $aggregateClass, 'modelId' => $modelId]);
+        \Event::fire('job.create.tag', [$jobId, 'Agrégation en attente de calcul']);
     }
 
 }

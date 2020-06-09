@@ -46,7 +46,8 @@ class Plugin extends PluginBase
             // $uniqueAgg = new \Waka\Agg\Classes\UniqueAgg();
             // $uniqueAgg->manual($model);
 
-            \Queue::push('Waka\Agg\Classes\UniqueAgg@fire', ['classAgg' => get_class($model), 'modelAggId' => $model->id]);
+            $jobId = \Queue::push('Waka\Agg\Classes\UniqueAgg@fire', ['classAgg' => get_class($model), 'modelAggId' => $model->id]);
+            \Event::fire('job.create.unique', [$jobId, 'Calcul des valeurs unique' . $model->name]);
         });
 
     }
