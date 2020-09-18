@@ -58,6 +58,7 @@ class AgMonth extends Model
         'created_at',
         'updated_at',
         'date_at',
+        'end_at',
     ];
 
     /**
