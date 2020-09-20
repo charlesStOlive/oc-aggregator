@@ -45,47 +45,43 @@ class Aggregations extends Controller
     public function AutoCreateAggregation($dataSourceId)
     {
         $startDateIfEmpty = Carbon::createFromDate(2017, 12, 31);
+
         $lastAgY = AgYear::where('data_source_id', $dataSourceId)->orderBy('end_at', 'desc')->first();
         if ($lastAgY) {
             $lastCreatedYear = $lastAgY->end_at;
         } else {
-            $lastCreatedYear = $startDateIfEmpty;
+            $lastCreatedYear = $startDateIfEmpty->copy();
         }
 
         $lastAgM = AgMonth::where('data_source_id', $dataSourceId)->orderBy('end_at', 'desc')->first();
         if ($lastAgM) {
             $lastCreatedMonth = $lastAgM->end_at;
         } else {
-            $lastCreatedMonth = $startDateIfEmpty;
+            $lastCreatedMonth = $startDateIfEmpty->copy();;
         }
 
         $lastAgW = AgWeek::where('data_source_id', $dataSourceId)->orderBy('end_at', 'desc')->first();
         if ($lastAgW) {
             $lastCreatedWeek = $lastAgW->end_at;
         } else {
-            $lastCreatedWeek = $startDateIfEmpty;
+            $lastCreatedWeek = $startDateIfEmpty->copy();
         }
 
         $nextDate = Carbon::now()->addWeeks(6);
         $diffWeeks = $lastCreatedWeek->diffInWeeks($nextDate);
         $diffMonths = $lastCreatedMonth->diffInMonths($nextDate);
-        $diffYears = $lastCreatedYear->diffInYears($nextDate);
-
-        trace_log("last----");
-        trace_log($lastCreatedWeek);
-        trace_log($lastCreatedMonth);
-        trace_log($lastCreatedYear);
-        trace_log("tomozzow---");
-        trace_log($nextDate);
-        trace_log("diff---");
-        trace_log($diffWeeks);
-        trace_log($diffMonths);
-        trace_log($diffYears);
-        trace_log("di--FIN---ff");
-
+        $diffYears = $nextDate->year - $lastCreatedYear->year;
+        // trace_log('Data Source ID -----------------------------------------------------'.$dataSourceId);
+        // trace_log("Derniers mois : ".$lastCreatedMonth->format('Y-m-d'));
+        // trace_log("Dernieres semaines : ".$lastCreatedWeek->format('Y-m-d'));
+        // trace_log("Derniers annes : ".$lastCreatedYear->format('Y-m-d'));
+        // trace_log("Travail sur les weeks----");
+        // trace_log("Dernieres semaines : ".$lastCreatedWeek->format('Y-m-d'));
+        // trace_log("nextDate : ".$nextDate->format('Y-m-d'));
+        // trace_log("diff---" . $diffWeeks);
         if ($diffWeeks) {
             for ($w = 1; $w <= $diffWeeks; $w++) {
-                $lastCreatedWeek = $lastCreatedWeek->addWeeks(1);
+                $lastCreatedWeek->addWeeks(1);
                 $week = new AgWeek();
                 $week->ag_year = $lastCreatedWeek->year;
                 $week->ag_week = $lastCreatedWeek->week;
@@ -93,9 +89,14 @@ class Aggregations extends Controller
                 $week->save();
             }
         }
+
+        // trace_log("travai sur les mois----");
+        // trace_log("Derniers mois : ".$lastCreatedMonth->format('Y-m-d'));
+        // trace_log("nextDate : ".$nextDate->format('Y-m-d'));
+        // trace_log("diff---" . $diffMonths);
         if ($diffMonths) {
             for ($m = 1; $m <= $diffMonths; $m++) {
-                $lastCreatedMonth = $lastCreatedMonth->addMonths(1);
+                $lastCreatedMonth->addMonths(1);
                 $month = new AgMonth();
                 $month->ag_year = $lastCreatedMonth->year;
                 $month->ag_month = $lastCreatedMonth->month;
@@ -103,9 +104,14 @@ class Aggregations extends Controller
                 $month->save();
             }
         }
+
+        // trace_log("travail sur les années----");
+        // trace_log("Derniers annes : ".$lastCreatedYear->format('Y-m-d'));
+        // trace_log("nextDate : ".$nextDate->format('Y-m-d'));
+        // trace_log("diff---" . $diffYears);
         if ($diffYears) {
             for ($y = 1; $y <= $diffYears; $y++) {
-                $lastCreatedYear = $lastCreatedYear->addYear(1);
+                $lastCreatedYear->addYear(1);
                 $year = new AgYear();
                 $year->ag_year = $lastCreatedYear->year;
                 $year->data_source_id = $dataSourceId;
