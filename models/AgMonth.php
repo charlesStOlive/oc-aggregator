@@ -59,6 +59,7 @@ class AgMonth extends Model
         'updated_at',
         'date_at',
         'end_at',
+        'start_at'
     ];
 
     /**
