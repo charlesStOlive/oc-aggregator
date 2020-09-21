@@ -57,7 +57,7 @@ class Aggregations extends Controller
         if ($lastAgM) {
             $lastCreatedMonth = $lastAgM->end_at;
         } else {
-            $lastCreatedMonth = $startDateIfEmpty->copy();;
+            $lastCreatedMonth = $startDateIfEmpty->copy();
         }
 
         $lastAgW = AgWeek::where('data_source_id', $dataSourceId)->orderBy('end_at', 'desc')->first();
@@ -86,6 +86,7 @@ class Aggregations extends Controller
                 $week->ag_year = $lastCreatedWeek->year;
                 $week->ag_week = $lastCreatedWeek->week;
                 $week->data_source_id = $dataSourceId;
+                //$week->is_ready = true;
                 $week->save();
             }
         }
@@ -101,6 +102,7 @@ class Aggregations extends Controller
                 $month->ag_year = $lastCreatedMonth->year;
                 $month->ag_month = $lastCreatedMonth->month;
                 $month->data_source_id = $dataSourceId;
+                //$month->is_ready = true;
                 $month->save();
             }
         }
@@ -115,6 +117,7 @@ class Aggregations extends Controller
                 $year = new AgYear();
                 $year->ag_year = $lastCreatedYear->year;
                 $year->data_source_id = $dataSourceId;
+                //$year->is_ready = true;
                 $year->save();
             }
         }
