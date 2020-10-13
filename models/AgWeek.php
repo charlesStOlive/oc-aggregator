@@ -82,7 +82,8 @@ class AgWeek extends Model
     public function beforeSave()
     {
         if (!$this->name) {
-            $ds_name = DataSource::find($this->data_source_id)->name;
+            $ds = new DataSource($this->data_source_id, 'id');
+            $ds_name = $ds->name;
             $this->name = $ds_name . ' ' . $this->ag_year . ' Semaine : ' . $this->ag_week;
         }
         Carbon::setWeekStartsAt(Carbon::MONDAY);

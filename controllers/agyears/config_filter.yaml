@@ -6,9 +6,11 @@ scopes:
     type:
         label: Type
         scope: tagFilter
-        modelClass: Waka\utils\Models\DataSource
         nameFrom: name
         conditions: data_source_id in (:filtered)
+        options: 
+            '1': Client
+            '2': Region
 
     years:
         label: Année

@@ -6,7 +6,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Waka\Agg\Models\AgMonth;
 use Waka\Agg\Models\AgWeek;
 use Waka\Agg\Models\AgYear;
-use Waka\Utils\Models\DataSource;
+use Waka\Utils\Classes\DataSource;
 
 class CreateAggTable extends Command
 {
@@ -32,7 +32,8 @@ class CreateAggTable extends Command
         $endYear = $this->argument('end_y');
         $model = $this->argument('model');
 
-        $modelId = DataSource::where('name', $model)->first()->id;
+        $ds = new DataSource($model, 'class');
+        $modelId = $ds->id;
 
         //trace_log($startYear);
         //trace_log($endYear);

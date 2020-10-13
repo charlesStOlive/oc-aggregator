@@ -12,10 +12,9 @@ columns:
         label: waka.agg::lang.global.ag_year
     ag_week:
         label: waka.agg::lang.global.ag_week
-    data_source:
-        label: waka.agg::lang.global.data_source
-        relation: data_source
-        select: name
+    data_source_id:
+        label: waka.utils::lang.datasource.title
+        type: datasource
     nb_l:
         label: waka.agg::lang.global.nb_l
         readOnly: true

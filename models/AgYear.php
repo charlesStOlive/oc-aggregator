@@ -2,7 +2,7 @@
 
 use Carbon\Carbon;
 use Model;
-use Waka\Utils\Models\DataSource;
+use Waka\Utils\Classes\DataSource;
 
 /**
  * year Model
@@ -68,7 +68,7 @@ class AgYear extends Model
     public $hasOne = [];
     public $hasMany = [];
     public $belongsTo = [
-        'data_source' => 'Waka\Utils\Models\DataSource',
+        //'data_source' => 'Waka\Utils\Models\DataSource',
     ];
     public $belongsToMany = [];
     public $morphTo = [];
@@ -82,7 +82,8 @@ class AgYear extends Model
     public function beforeSave()
     {
         if (!$this->name) {
-            $ds_name = DataSource::find($this->data_source_id)->name;
+            $ds = new DataSource($this->data_source_id, 'id');
+            $ds_name = $ds->name;
             $this->name = $ds_name . ' ' . $this->ag_year;
         }
         $this->start_at = \Carbon\Carbon::createFromDate($this->ag_year, 1, 1);

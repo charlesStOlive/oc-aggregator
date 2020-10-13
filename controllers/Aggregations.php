@@ -5,7 +5,7 @@ use Carbon\Carbon;
 use Waka\Agg\Models\AgMonth;
 use Waka\Agg\Models\AgWeek;
 use Waka\Agg\Models\AgYear;
-use Waka\Utils\Models\DataSource;
+use Waka\Utils\Classes\DataSource;
 
 /**
  * Ag Months Back-end Controller
@@ -35,7 +35,8 @@ class Aggregations extends Controller
             ];
         };
         foreach ($array_model as $model) {
-            $dataSourceId = DataSource::where('name', $model)->first()->id;
+            $ds = new DataSource($model, 'class');
+            $dataSourceId = $ds->id;
             $this->AutoCreateAggregation($dataSourceId);
 
         }

@@ -5,9 +5,12 @@
 scopes:
     type:
         label: Type
-        modelClass: Waka\utils\Models\DataSource
+        modelClass: Waka\utils\Classes\DataSource
         nameFrom: name
         conditions: data_source_id in (:filtered)
+        options: 
+            '1': Client
+            '2': Region
 
     years:
         label: Année
