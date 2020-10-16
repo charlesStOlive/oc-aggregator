@@ -17,7 +17,7 @@ class AggeableLog extends Model
     /**
      * @var array Guarded fields
      */
-    protected $guarded = ['*'];
+    protected $guarded = [];
 
     /**
      * @var array Fillable fields
@@ -55,8 +55,7 @@ class AggeableLog extends Model
     protected $dates = [
         'created_at',
         'updated_at',
-        'last_upadated_at',
-        'first_updated_at',
+        'taken_at',
         'ended_at',
     ];
 

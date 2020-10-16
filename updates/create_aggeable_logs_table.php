@@ -11,10 +11,12 @@ class CreateAggeableLogsTable extends Migration
         Schema::create('waka_agg_aggeable_logs', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
-            $table->timestamp('taken_at');
-            $table->timestamp('ended_at');
-            $table->integer('data_source_id')->unsigned();;
-            $table->text('log');
+            $table->timestamp('taken_at')->nullable();
+            $table->timestamp('ended_at')->nullable();
+            $table->integer('data_source_id')->unsigned();
+            $table->integer('parts')->unsigned()->nullable();
+            $table->integer('parts_ended')->unsigned()->nullable();
+            $table->text('log')->nullable();
             $table->timestamps();
         });
     }
