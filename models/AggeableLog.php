@@ -1,30 +1,28 @@
 <?php namespace Waka\Agg\Models;
 
 use Model;
-use Waka\Utils\Classes\DataSource;
-use \Carbon\Carbon;
 
 /**
- * month Model
+ * AggeableLog Model
  */
-class AgMonth extends Model
+class AggeableLog extends Model
 {
     use \October\Rain\Database\Traits\Validation;
 
     /**
      * @var string The database table used by the model.
      */
-    public $table = 'waka_agg_months';
+    public $table = 'waka_agg_aggeable_logs';
 
     /**
      * @var array Guarded fields
      */
-    protected $guarded = [''];
+    protected $guarded = ['*'];
 
     /**
      * @var array Fillable fields
      */
-    protected $fillable = ['*'];
+    protected $fillable = [];
 
     /**
      * @var array Validation rules for attributes
@@ -57,9 +55,9 @@ class AgMonth extends Model
     protected $dates = [
         'created_at',
         'updated_at',
-        'date_at',
-        'end_at',
-        'start_at'
+        'last_upadated_at',
+        'first_updated_at',
+        'ended_at',
     ];
 
     /**
@@ -67,35 +65,13 @@ class AgMonth extends Model
      */
     public $hasOne = [];
     public $hasMany = [];
-    public $belongsTo = [
-        // 'data_source' => 'Waka\Utils\Models\DataSource',
-    ];
+    public $hasOneThrough = [];
+    public $hasManyThrough = [];
+    public $belongsTo = [];
     public $belongsToMany = [];
     public $morphTo = [];
     public $morphOne = [];
-    public $morphMany = [
-        'periodeables' => ['Waka\Agg\Models\Aggregable', 'name' => 'periodeable'],
-    ];
+    public $morphMany = [];
     public $attachOne = [];
     public $attachMany = [];
-
-    public function beforeSave()
-    {
-        if (!$this->name) {
-            $ds = new DataSource($this->data_source_id, 'id');
-            $ds_name = $ds->name;
-            $this->name = $ds_name . ' ' . $this->ag_year . ' mois : ' . $this->ag_month;
-        }
-
-        $dt = \Carbon\Carbon::createFromDate($this->ag_year, $this->ag_month, 1);
-        $dte = \Carbon\Carbon::createFromDate($this->ag_year, $this->ag_month, 1);
-        $this->start_at = $dt;
-        $this->end_at = $dte->endOfMonth();
-
-    }
-
-    public function afterSave()
-    {
-        \Event::fire('agg.update', [$this]);
-    }
 }

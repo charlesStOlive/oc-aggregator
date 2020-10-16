@@ -1,3 +1,4 @@
 1.0.1: 
   - 'First version of agg'
   - create_aggeables_table.php
+  - create_aggeable_logs_table.php

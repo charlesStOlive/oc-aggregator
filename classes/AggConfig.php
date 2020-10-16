@@ -3,16 +3,17 @@
 namespace Waka\Agg\Classes;
 use Waka\Utils\Model\DataSource;
 use Carbon\Carbon;
+use AggeableLog;
 
 class AggConfig
 {
     public $config;
     public $update;
-    public $today;
-    public $startDay;
     public $aggRelation;
     public $relationArray;
+    public $dataSourceId;
     public $chunk;
+    
     
 
     public function __construct($config, $class) 
@@ -21,10 +22,7 @@ class AggConfig
         $this->update = $config['update'] ?? 700;
         $this->chunk = $config['chunk'] ?? 1000;
         $this->class = $class;
-
         $this->relationArray = $this->config['relations'];
-        $today = Carbon::now();
-        $startDay = $today->copy()->subdays($this->update);
     }
 
     public function launchOne($id) {
