@@ -15,16 +15,15 @@ class Aggregate extends ControllerBehavior
     public function onAggregate()
     {
         $modelId = post('modelId');
-        $aggregateClass = post('aggregateClass');
+        $model = post('model');
 
-        //trace_log($aggregateClass);
+        $ds = new DataSource($model, 'class');
+        $aggregateTyperClass = $ds->aggs;;
+        // $agg = $aggregateClass::find($modelId);
 
-        $aggregateTyperClass = new $aggregateClass;
-        $agg = $aggregateClass::find($modelId);
-
-        $aggClass = $agg->data_source->agg_class;
-        $aggClass = new $aggClass;
-        $aggClass->fire(null, ['class' => $aggregateClass, 'modelId' => $modelId]);
+        // $aggClass = $agg->data_source->agg_class;
+        // $aggClass = new $aggClass;
+        // $aggClass->fire(null, ['class' => $aggregateClass, 'modelId' => $modelId]);
         return \Redirect::refresh();
     }
 
@@ -123,9 +122,9 @@ class Aggregate extends ControllerBehavior
 
     public function onAggregateOne($modelId, $aggregateClass, $aggClass = null)
     {
-        trace_log($aggregateClass);
-        trace_log($modelId);
-        trace_log($aggClass);
+        // trace_log($aggregateClass);
+        // trace_log($modelId);
+        // trace_log($aggClass);
         if (!$aggClass) {
             $agg = new $aggregateClass;
             $agg = $aggregateClass::find($modelId);
