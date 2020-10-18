@@ -61,7 +61,7 @@ class AggRelation
             $this->start_at = $this->getOldestRow();
         }
         if($this->start_at == 'STOP') {
-            trace_log("Il n' y a rien à faire");
+            //trace_log("Il n' y a rien à faire");
             return;
         }
         foreach($this->getPeriodeKey() as $periodeSegment) {
