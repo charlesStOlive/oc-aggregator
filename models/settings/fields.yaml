@@ -1,0 +1,5 @@
+fields:
+    activate_dashboard:
+        label: waka.utils::lang.settings.activate_dashboard
+        type: switch
+        tab: button

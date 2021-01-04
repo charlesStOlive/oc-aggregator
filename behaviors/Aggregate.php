@@ -18,7 +18,7 @@ class Aggregate extends ControllerBehavior
         $model = post('model');
 
         $ds = new DataSource($model, 'class');
-        $aggregateTyperClass = $ds->aggs;;
+        $aggregateTyperClass = $ds->aggs;
         // $agg = $aggregateClass::find($modelId);
 
         // $aggClass = $agg->data_source->agg_class;

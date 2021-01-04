@@ -3,27 +3,23 @@
 use Model;
 
 /**
- * aggeableLog Model
+ * aggeable Model
  */
-
-class AggeableLog extends Model
+class Aggeable extends Model
 {
     use \October\Rain\Database\Traits\Validation;
 
     /**
      * @var string The database table used by the model.
      */
-    public $table = 'waka_agg_aggeable_logs';
+    public $table = 'waka_agg_aggeables';
 
-    /**
-     * @var boolean supprime la gestion des timestamps
-     */
     public $timestamps = false;
 
     /**
      * @var array Guarded fields
      */
-    protected $guarded = ['*'];
+    protected $guarded = [];
 
     /**
      * @var array Fillable fields
@@ -33,14 +29,7 @@ class AggeableLog extends Model
     /**
      * @var array Validation rules for attributes
      */
-    public $rules = [
-    ];
-
-    /**
-     * @var array attributes send to datasource for creating document
-     */
-    public $attributesToDs = [
-    ];
+    public $rules = [];
 
     /**
      * @var array Attributes to be cast to native types
@@ -50,14 +39,12 @@ class AggeableLog extends Model
     /**
      * @var array Attributes to be cast to JSON
      */
-    protected $jsonable = [
-    ];
+    protected $jsonable = [];
 
     /**
      * @var array Attributes to be appended to the API representation of the model (ex. toArray())
      */
-    protected $appends = [
-    ];
+    protected $appends = [];
 
     /**
      * @var array Attributes to be removed from the API representation of the model (ex. toArray())
@@ -68,59 +55,33 @@ class AggeableLog extends Model
      * @var array Attributes to be cast to Argon (Carbon) instances
      */
     protected $dates = [
-        'taken_at',
-        'ended_at',
+        'start_at',
+        'end_at',
     ];
 
     /**
      * @var array Relations
      */
     public $hasOne = [];
-    public $hasMany = [
-    ];
+    public $hasMany = [];
     public $hasOneThrough = [];
-    public $hasManyThrough = [
-
-    ];
-    public $belongsTo = [
-    ];
+    public $hasManyThrough = [];
+    public $belongsTo = [];
     public $belongsToMany = [];
-    public $morphTo = [];
-    public $morphOne = [
+    public $morphTo = [
+        'aggeable' => [],
     ];
-    public $morphMany = [
-    ];
-    public $attachOne = [
-    ];
-    public $attachMany = [
-    ];
+    public $morphOne = [];
+    public $morphMany = [];
+    public $attachOne = [];
+    public $attachMany = [];
 
-    /**
-     *EVENTS
-     **/
-
-    /**
-     * LISTS
-     **/
-
-    /**
-     * GETTERS
-     **/
-
-    /**
-     * SCOPES
-     */
-
-    /**
-     * SETTERS
-     */
-
-    /**
-     * FILTER FIELDS
-     */
-
-    /**
-     * OTHERS
-     */
-
+    public function scopelastMonth($query)
+    {
+        //trace_sql();
+        //trace_log(get_class($query));
+        //trace_log($query->first()->toArray());
+        return $query->first();
+        
+    }
 }

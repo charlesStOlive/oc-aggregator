@@ -2,25 +2,22 @@
 #  Form Field Definitions
 # ===================================
 
-fields:    
+icon: icon-calculator
+attributes:
     type:
         label: waka.agg::aggeable.type
-        span: auto
     year:
         label: waka.agg::aggeable.year
-        span: auto
+        type: 2
     num:
         label: waka.agg::aggeable.num
-        span: auto
+        type: 3
     column:
         label: waka.agg::aggeable.column
-        span: auto
+        type: 4
     value:
         label: waka.agg::aggeable.value
-        span: auto
+        type: 5
     ended_at:
         label: waka.agg::aggeable.ended_at
-        span: auto
-        type: datepicker
-        mode: date
-        ignoreTimezone: true
+        type: 6

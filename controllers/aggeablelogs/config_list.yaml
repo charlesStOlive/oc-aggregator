@@ -3,16 +3,16 @@
 # ===================================
 
 # Model List Column configuration
-list: $/waka/agg/models/aggeable/columns.yaml
+list: $/waka/agg/models/aggeablelog/columns.yaml
 
 # Model Class name
-modelClass: Waka\Agg\Models\Aggeable
+modelClass: Waka\Agg\Models\AggeableLog
 
 # List Title
-title: Manage Aggeables
+title: waka.agg::aggeablelog.title
 
 # Link URL for each record
-recordUrl: waka/agg/aggeables/update/:id
+recordUrl: waka/agg/aggeablelogs/update/:id
 
 # Message to display if the list is empty
 noRecordsMessage: backend::lang.list.no_records
@@ -29,12 +29,15 @@ showSetup: true
 # Displays the sorting link on each column
 showSorting: true
 
+
 # Default sorting column
 # defaultSort:
 #     column: created_at
 #     direction: desc
-
-# Display checkboxes next to each record
+defaultSort:
+    column: updated_at
+    direction: desc
+    # Display checkboxes next to each record
 showCheckboxes: true
 
 # Toolbar widget configuration

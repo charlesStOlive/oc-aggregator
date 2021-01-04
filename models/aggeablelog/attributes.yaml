@@ -1,24 +1,20 @@
 # ===================================
-#  List Column Definitions
+#  Form Field Definitions
 # ===================================
 
-columns:
-
+icon: icon-calculator
+attributes:
     taken_at:
         label: waka.agg::aggeablelog.taken_at
-        searchable: true
-        type: timesince
     ended_at:
         label: waka.agg::aggeablelog.ended_at
-        searchable: true
-        type: timesince
+        type: 2
     data_source:
         label: waka.agg::aggeablelog.data_source
-        searchable: true
+        type: 3
     parts:
         label: waka.agg::aggeablelog.parts
-        searchable: true
+        type: 4
     parts_ended:
         label: waka.agg::aggeablelog.parts_ended
-        searchable: true
-        
+        type: 5

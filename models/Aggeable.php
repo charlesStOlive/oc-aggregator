@@ -5,6 +5,7 @@ use Model;
 /**
  * aggeable Model
  */
+
 class Aggeable extends Model
 {
     use \October\Rain\Database\Traits\Validation;
@@ -14,12 +15,15 @@ class Aggeable extends Model
      */
     public $table = 'waka_agg_aggeables';
 
+    /**
+     * @var boolean supprime la gestion des timestamps
+     */
     public $timestamps = false;
 
     /**
      * @var array Guarded fields
      */
-    protected $guarded = [];
+    protected $guarded = ['*'];
 
     /**
      * @var array Fillable fields
@@ -29,7 +33,14 @@ class Aggeable extends Model
     /**
      * @var array Validation rules for attributes
      */
-    public $rules = [];
+    public $rules = [
+    ];
+
+    /**
+     * @var array attributes send to datasource for creating document
+     */
+    public $attributesToDs = [
+    ];
 
     /**
      * @var array Attributes to be cast to native types
@@ -39,12 +50,14 @@ class Aggeable extends Model
     /**
      * @var array Attributes to be cast to JSON
      */
-    protected $jsonable = [];
+    protected $jsonable = [
+    ];
 
     /**
      * @var array Attributes to be appended to the API representation of the model (ex. toArray())
      */
-    protected $appends = [];
+    protected $appends = [
+    ];
 
     /**
      * @var array Attributes to be removed from the API representation of the model (ex. toArray())
@@ -55,33 +68,58 @@ class Aggeable extends Model
      * @var array Attributes to be cast to Argon (Carbon) instances
      */
     protected $dates = [
-        'start_at',
-        'end_at',
+        'ended_at',
     ];
 
     /**
      * @var array Relations
      */
     public $hasOne = [];
-    public $hasMany = [];
-    public $hasOneThrough = [];
-    public $hasManyThrough = [];
-    public $belongsTo = [];
-    public $belongsToMany = [];
-    public $morphTo = [
-        'aggeable' => [],
+    public $hasMany = [
     ];
-    public $morphOne = [];
-    public $morphMany = [];
-    public $attachOne = [];
-    public $attachMany = [];
-
-    public function scopelastMonth($query)
-    {
-        //trace_sql();
-        //trace_log(get_class($query));
-        //trace_log($query->first()->toArray());
-        return $query->first();
+    public $hasOneThrough = [];
+    public $hasManyThrough = [
         
-    }
+    ];
+    public $belongsTo = [
+    ];
+    public $belongsToMany = [];
+    public $morphTo = [];
+    public $morphOne = [
+    ];
+    public $morphMany = [
+    ];
+    public $attachOne = [
+    ];
+    public $attachMany = [
+    ];
+
+    /**
+     *EVENTS
+     **/
+
+    /**
+     * LISTS
+     **/
+
+    /**
+     * GETTERS
+     **/
+
+    /**
+     * SCOPES
+     */
+
+    /**
+     * SETTERS
+     */
+ 
+    /**
+     * FILTER FIELDS
+     */
+
+    /**
+     * OTHERS
+     */
+    
 }

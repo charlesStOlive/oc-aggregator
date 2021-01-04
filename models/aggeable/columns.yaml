@@ -3,6 +3,23 @@
 # ===================================
 
 columns:
-    id:
-        label: ID
+
+    type:
+        label: waka.agg::aggeable.type
         searchable: true
+    year:
+        label: waka.agg::aggeable.year
+        searchable: true
+    num:
+        label: waka.agg::aggeable.num
+        searchable: true
+    column:
+        label: waka.agg::aggeable.column
+        searchable: true
+    value:
+        label: waka.agg::aggeable.value
+        searchable: true
+    ended_at:
+        label: waka.agg::aggeable.ended_at
+        type: date
+        ignoreTimezone: true

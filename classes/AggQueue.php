@@ -6,7 +6,6 @@ class AggQueue
 {
     public function fire($job, $datas)
     {
-        //trace_log('lancement du queue');
         if ($job) {
             \Event::fire('job.start.agg', [$job, "création lot d'agrégation"]);
         }
@@ -19,7 +18,6 @@ class AggQueue
         $aggConfig = $ds->getAggConfig();
         $aggConfig->setLogId($logId);
         $aggConfig->launchAll($ids);
-        
 
         if ($job) {
             \Event::fire('job.end.agg', [$job]);

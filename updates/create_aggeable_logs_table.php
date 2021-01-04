@@ -1,8 +1,8 @@
 <?php namespace Waka\Agg\Updates;
 
-use Schema;
 use October\Rain\Database\Schema\Blueprint;
 use October\Rain\Database\Updates\Migration;
+use Schema;
 
 class CreateAggeableLogsTable extends Migration
 {
@@ -11,13 +11,12 @@ class CreateAggeableLogsTable extends Migration
         Schema::create('waka_agg_aggeable_logs', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
-            $table->timestamp('taken_at')->nullable();
+            $table->timestamp('taken_at');
             $table->timestamp('ended_at')->nullable();
-            $table->integer('data_source_id')->unsigned();
-            $table->integer('parts')->unsigned()->nullable();
-            $table->integer('parts_ended')->unsigned()->nullable();
-            $table->text('log')->nullable();
-            $table->timestamps();
+            $table->string('data_source')->nullable();
+            $table->integer('parts')->nullable();
+            $table->integer('parts_ended')->nullable();
+            $table->string('log')->nullable();
         });
     }
 

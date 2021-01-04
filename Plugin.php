@@ -1,7 +1,5 @@
 <?php namespace Waka\Agg;
 
-use Backend;
-use Lang;
 use System\Classes\PluginBase;
 
 /**
@@ -31,7 +29,7 @@ class Plugin extends PluginBase
      */
     public function register()
     {
-        $this->registerConsoleCommand('waka.agg', 'Waka\Agg\Console\CreateAggTable');
+
     }
 
     /**
@@ -86,6 +84,26 @@ class Plugin extends PluginBase
      *
      * @return array
      */
+    public function registerSettings()
+    {
+        return [
+            'AggeableLogs' => [
+                'label' => \Lang::get('waka.agg::lang.menu.aggeable_logs'),
+                'description' => \Lang::get('waka.agg::lang.menu.aggeable_logs_description'),
+                'category' => \Lang::get('waka.utils::lang.menu.settings_category'),
+                'icon' => 'icon-calculator',
+                'url' => \Backend::url('waka/agg/aggeablelogs'),
+                'permissions' => ['waka.agg.admin.*'],
+                'order' => 20,
+            ],
+            // 'agg_settings' => [
+            //     'label' => 'Test Settings',
+            //     'description' => 'Test settings descr',
+            //     'class' => 'Waka\Agg\Models\Settings',
+            // ],
+        ];
+    }
+
     /**
      * Registers back-end navigation items for this plugin.
      *
@@ -93,31 +111,7 @@ class Plugin extends PluginBase
      */
     public function registerNavigation()
     {
-        return [
-            'agg' => [
-                'label' => Lang::get('waka.agg::lang.menu.title'),
-                'url' => Backend::url('waka/agg/agmonths'),
-                'icon' => 'icon-line-chart',
-                'permissions' => ['waka.agg.*'],
-                'order' => 002,
-                'sideMenu' => [
-                    'side-menu-years' => [
-                        'label' => Lang::get('waka.agg::lang.menu.agyears'),
-                        'icon' => 'icon-hourglass',
-                        'url' => Backend::url('waka/agg/agyears'),
-                    ],
-                    'side-menu-months' => [
-                        'label' => Lang::get('waka.agg::lang.menu.agmonths'),
-                        'icon' => 'icon-hourglass-end',
-                        'url' => Backend::url('waka/agg/agmonths'),
-                    ],
-                    'side-menu-week' => [
-                        'label' => Lang::get('waka.agg::lang.menu.agweeks'),
-                        'icon' => 'icon-hourglass-o',
-                        'url' => Backend::url('waka/agg/agweeks'),
-                    ],
-                ],
-            ],
-        ];
+
+        return [];
     }
 }

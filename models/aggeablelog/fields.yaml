@@ -2,7 +2,19 @@
 #  Form Field Definitions
 # ===================================
 
-fields:
-    id:
-        label: ID
-        disabled: true
+fields:    
+    taken_at:
+        label: waka.agg::aggeablelog.taken_at
+        span: auto
+    ended_at:
+        label: waka.agg::aggeablelog.ended_at
+        span: auto
+    data_source:
+        label: waka.agg::aggeablelog.data_source
+        span: auto
+    parts:
+        label: waka.agg::aggeablelog.parts
+        span: auto
+    parts_ended:
+        label: waka.agg::aggeablelog.parts_ended
+        span: auto

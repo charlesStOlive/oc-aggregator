@@ -5,12 +5,8 @@ return [
         'title' => 'Agrégations',
         'label' => 'Agrégations',
         'description' => "Gestion des agrégations",
-        'settings' => "Options agrégations",
-        'settings_description' => "Réglage des valeurs par defaut",
-        'settings_category' => 'Wakaari outils',
-        'agyears' => "Par An",
-        'agmonths' => "Par mois",
-        'agweeks' => "Par semaine",
+        "aggeable_logs" => "Logs aggrégations",
+        "aggeable_logs_description" => "Logs aggrégations",
     ],
     'global' => [
         'name' => 'Nom ',
@@ -36,6 +32,13 @@ return [
         'mb' => "Montant",
         'is_ready' => "Pret",
 
+    ],
+    'agg' => [
+        "year" => "Année",
+        "type" => "Période d'agrégation",
+        "num" => "Numéro de semaine/mois",
+        "column" => "Mode de calcul",
+        "value" => "Valeur",
     ],
     'popup' => [
         'title' => 'Segmentation',

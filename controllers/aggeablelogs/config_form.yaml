@@ -1,0 +1,31 @@
+# ===================================
+#  Form Behavior Config
+# ===================================
+
+# Record name
+name: waka.agg::aggeablelog.form_name
+
+# Model Form Field configuration
+form: $/waka/agg/models/aggeablelog/fields.yaml
+
+# Model Class name
+modelClass: Waka\Agg\Models\AggeableLog
+
+# Default redirect location
+defaultRedirect: waka/agg/aggeablelogs
+
+# Create page
+create:
+    title: waka.agg::aggeablelog.create
+    redirect: waka/agg/aggeablelogs/update/:id
+    redirectClose: waka/agg/aggeablelogs
+
+# Update page
+update:
+    title: waka.agg::aggeablelog.update
+    redirect: waka/agg/aggeablelogs
+    redirectClose: waka/agg/aggeablelogs
+
+# Preview page
+preview:
+    title: waka.agg::aggeablelog.preview_name
