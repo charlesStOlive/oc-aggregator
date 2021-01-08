@@ -43,6 +43,7 @@ class AggRelation
             $oldestRow = $relatedClass::where('updated_at', '>', $lastAgg->taken_at)->orderBy($this->dateColumn, 'desc')->first();
             return $oldestRow ? $oldestRow[$this->dateColumn] : 'STOP';
         } else {
+            //Aggeable::where('aggeable_type', $this->morphedName)->delete();
             return null;
         }
     }
@@ -77,73 +78,65 @@ class AggRelation
     {
         $periodes = $this->getAggPeriode($key);
         $listesPeriodes = $periodes->listPeriode();
-        //trace_log($listesPeriodes);
         $injectObject = [];
         $uniqueObject = new \October\Rain\Support\Collection();
 
         $olderAggRequest = Aggeable::where('aggeable_type', $this->morphedName)
             ->whereIn('aggeable_id', $ids)
             ->where('type', $key);
-
-        // $advancedClean = false;
-
-        // if ($olderAggRequest->count()) {
-        //     $advancedClean = true;
-        // }
         //boucle sur la listePeriode qui renvoi un array avec les principales valeurs.
         foreach ($listesPeriodes as $periode) {
+            //trace_log($periode);
             $results = $this->queryClass::get($ids, $periode);
-            foreach ($periode['calculs'] as $calcul) {
-                //lancement boucle periode
-                foreach ($ids as $id) {
-                    //lancement boucle ID
-                    $result = $results->where('id', $id)->first();
-                    $finalResult = 0;
-                    if ($result) {
-                        if ($calcul['type'] == 'count') {
-                            $finalResult = $result->count;
+            $calculData = $periode['calculs'];
+            //     foreach ($periode['calculs'] as $calcul) {
+            //         //lancement boucle periode
+            foreach ($ids as $id) {
+                //lancement boucle ID
+                $result = $results->where('id', $id)->first();
+                $finalResult = [];
+                if ($result) {
+                    $finalResult['count'] = $result->count;
+                    $finalResult['sum'] = $result->{$calculData['column']};
+                }
+                $inject = [
+                    'aggeable_type' => $this->morphedName,
+                    'aggeable_id' => $id,
+                    'type' => $key,
+                    'year' => $periode['year'],
+                    'num' => $periode['num'],
+                    'column' => $calculData['column'],
+                    'sum' => $finalResult['sum'] ?? 0,
+                    'count' => $finalResult['count'] ?? 0,
+                    'ended_at' => $periode['end_at'],
+                ];
+                array_push($injectObject, $inject);
 
-                        }
-                        if ($calcul['type'] == 'sum') {
-                            $finalResult = $result->{$calcul['column']};
+                // // trace_log($calcul);
+                // // trace_log($result);
 
-                        }
-                    }
-                    $inject = [
-                        'type' => $key,
-                        'year' => $periode['year'],
-                        'num' => $periode['num'],
-                        'column' => $calcul['column'],
-                        'agg' => $calcul['type'],
-                        'aggeable_type' => $this->morphedName,
-                        'aggeable_id' => $id,
-                        'value' => $finalResult,
-                        'ended_at' => $periode['end_at'],
-                    ];
-                    array_push($injectObject, $inject);
-
-                    // trace_log($calcul);
-                    // trace_log($result);
-
-                    // trace_log($inject);
-                    // trace_log('createUnique'. $calcul['createUnique']);
-                    if ($calcul['createUnique'] ?? false) {
+                // // trace_log($inject);
+                // // trace_log('createUnique'. $calcul['createUnique']);
+                $createUnique = $calculData['createUnique'] ?? false;
+                if ($createUnique) {
+                    foreach ($createUnique as $uniqueType => $uniqueColumn) {
                         // trace_log('il y a un calcul');
                         $obj = [
                             'id' => $id,
-                            'column' => $calcul['createUnique'],
-                            'result' => $finalResult,
+                            'column' => $uniqueColumn,
+                            'result' => $finalResult[$uniqueType] ?? 0,
                         ];
                         $uniqueObject->push($obj);
                     }
                 }
-                //suppression de toutes les lignes avant INSERT de masse
-                //trace_sql();
-                $olderAggRequest->where('year', $periode['year'])->where('num', $periode['num'])->where('agg', $calcul['type']);
-                trace_log("Nombre de ligne à supprimer");
-                trace_log($olderAggRequest->count());
-                $olderAggRequest->delete();
             }
+            //trace_log($uniqueObject->toArray());
+            //suppression de toutes les lignes avant INSERT de masse
+            //trace_sql();
+            $olderAggRequest->where('year', $periode['year'])->where('num', $periode['num'])->where('column', $calculData['column']);
+            //trace_log("Nombre de ligne à supprimer");
+            //trace_log($olderAggRequest->count());
+            $olderAggRequest->delete();
 
         }
         $injectChuncked = array_chunk($injectObject, 1000);

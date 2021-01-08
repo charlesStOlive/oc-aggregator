@@ -12,11 +12,14 @@ class AggPeriode
     public $keep;
     public $start_at;
     public $end_at;
+    public $field;
+    public $create_unique;
 
     public function __construct(array $config, String $periode, Carbon $start_at, Carbon $end_at)
     {
-        $this->config = $config;
-        $this->calculs = $config['calculs'];
+        //$this->config = $config;
+        $this->field = $config['field'];
+        $this->create_unique = $config['create_unique'];
         $this->periode = $periode;
         //
         $this->start_at = $start_at;
@@ -52,7 +55,7 @@ class AggPeriode
                     'periode' => $this->periode,
                     'start_at' => $dateStart->format('Y-m-d'),
                     'end_at' => $dateEnd->format('Y-m-d'),
-                    'calculs' => $this->getCalculs($dateStart, $dateEnd),
+                    'calculs' => $this->getCalcul($dateStart, $dateEnd),
                 ];
                 array_push($result, $obj);
                 $sub_start_at->addYear();
@@ -76,7 +79,7 @@ class AggPeriode
                     'periode' => $this->periode,
                     'start_at' => $dateStart->format('Y-m-d'),
                     'end_at' => $dateEnd->format('Y-m-d'),
-                    'calculs' => $this->getCalculs($dateStart, $dateEnd),
+                    'calculs' => $this->getCalcul($dateStart, $dateEnd),
                 ];
                 array_push($result, $obj);
                 $sub_start_at->addQuarter();
@@ -101,7 +104,7 @@ class AggPeriode
                     'periode' => $this->periode,
                     'start_at' => $dateStart->format('Y-m-d'),
                     'end_at' => $dateEnd->format('Y-m-d'),
-                    'calculs' => $this->getCalculs($dateStart, $dateEnd),
+                    'calculs' => $this->getCalcul($dateStart, $dateEnd),
                 ];
                 array_push($result, $obj);
                 $sub_start_at->addMonth();
@@ -130,7 +133,7 @@ class AggPeriode
                     'periode' => $this->periode,
                     'start_at' => $dateStart->format('Y-m-d'),
                     'end_at' => $dateEnd->format('Y-m-d'),
-                    'calculs' => $this->getCalculs($dateStart, $dateEnd),
+                    'calculs' => $this->getCalcul($dateStart, $dateEnd),
                 ];
                 array_push($result, $obj);
                 $sub_start_at->addWeek();
@@ -141,30 +144,23 @@ class AggPeriode
         return $result;
     }
 
-    public function getCalculs($start_at, $end_at)
+    public function getCalcul($start_at, $end_at)
     {
-        $calculs = [];
-        foreach ($this->calculs as $calculKey => $calculConfig) {
-            $createUnique = $calculConfig['create_unique'] ?? false;
-            $calcul = [
-                'type' => $calculConfig['type'],
-                'column' => $calculKey,
-                'createUnique' => $this->isUniqueableValue($createUnique, $start_at, $end_at),
-            ];
-            array_push($calculs, $calcul);
-        }
-        return $calculs;
+        return [
+            'column' => $this->field,
+            'createUnique' => $this->isUniqueableValue($start_at, $end_at),
+        ];
     }
 
-    public function isUniqueableValue($configUnique, $start, $end)
+    public function isUniqueableValue($start, $end)
     {
-        if (!$configUnique) {
+        $result = [];
+        if (!$this->create_unique) {
             return false;
         }
-        $result = [];
-        foreach ($this->calculs as $calculKey => $calculConfig) {
-
-            foreach ($configUnique as $key => $value) {
+        foreach ($this->create_unique as $keyType => $valueType) {
+            //keyType nous donne le type d'aggrégation Count ou Sum
+            foreach ($valueType as $key => $value) {
                 $date = Carbon::now();
                 if ($value != 'now' && $value) {
 
@@ -181,16 +177,17 @@ class AggPeriode
                         $date->subWeeks($value);
                     }
                 }
-                // trace_log($date->format('y-m-d'));
-                // trace_log($start->format('y-m-d'));
-                // trace_log($end->format('y-m-d'));
-
-                //trace_log($date->format('y-m-d').' , '.$start->format('y-m-d').' '.$end->format('y-m-d'));
                 if ($date->isBetween($start, $end)) {
-                    return $key;
+                    $result[$keyType] = $key;
                 }
             }
+
+        }
+        if (count($result)) {
+            return $result;
+        } else {
             return false;
         }
+
     }
 }

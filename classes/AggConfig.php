@@ -40,18 +40,19 @@ class AggConfig
         }
     }
 
-    public function getOldestRow()
-    {
-        $lastAgg = AggeableLog::where('data_source', $this->ds->code)->whereNotNull('ended_at')->orderBy('taken_at', 'desc')->first();
-        if ($lastAgg) {
-            $relatedClass = $this->class::{$this->relationName}()->getRelated();
-            $oldestRow = $relatedClass::where('updated_at', '>', $lastAgg->taken_at)->orderBy($this->dateColumn, 'desc')->first();
-            return $oldestRow ? $oldestRow[$this->dateColumn] : 'STOP';
-        } else {
-            return null;
-        }
+    // public function getOldestRow()
+    // {
+    //     $lastAgg = AggeableLog::where('data_source', $this->ds->code)->whereNotNull('ended_at')->orderBy('taken_at', 'desc')->first();
+    //     if ($lastAgg) {
+    //         $relatedClass = $this->class::{$this->relationName}()->getRelated();
+    //         $oldestRow = $relatedClass::where('updated_at', '>', $lastAgg->taken_at)->orderBy($this->dateColumn, 'desc')->first();
+    //         return $oldestRow ? $oldestRow[$this->dateColumn] : 'STOP';
+    //     } else {
+    //         Aggeable::where('aggeable_type', $this->config['morphedName']);
+    //         return null;
+    //     }
 
-    }
+    // }
 
     public function launchall(array $ids)
     {

@@ -15,9 +15,12 @@ attributes:
     column:
         label: waka.agg::aggeable.column
         type: 4
-    value:
-        label: waka.agg::aggeable.value
+    count:
+        label: waka.agg::aggeable.count
         type: 5
+    sum:
+        label: waka.agg::aggeable.sum
+        type: 6
     ended_at:
         label: waka.agg::aggeable.ended_at
-        type: 6
+        type: 8

@@ -15,8 +15,11 @@ fields:
     column:
         label: waka.agg::aggeable.column
         span: auto
-    value:
-        label: waka.agg::aggeable.value
+    count:
+        label: waka.agg::aggeable.count
+        span: auto
+    sum:
+        label: waka.agg::aggeable.sum
         span: auto
     ended_at:
         label: waka.agg::aggeable.ended_at

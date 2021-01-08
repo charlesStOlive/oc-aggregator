@@ -51,6 +51,7 @@ class Aggeable extends Model
      * @var array Attributes to be cast to JSON
      */
     protected $jsonable = [
+        'data',
     ];
 
     /**

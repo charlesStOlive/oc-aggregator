@@ -16,9 +16,10 @@ class CreateAggeablesTable extends Migration
             $table->string('type')->nullable();
             $table->integer('year')->nullable();
             $table->integer('num')->nullable();
-            $table->string('agg')->nullable();
             $table->string('column')->nullable();
-            $table->double('value', 15, 2)->nullable();
+            $table->integer('count')->nullable();
+            $table->double('sum', 15, 2)->nullable();
+            $table->text('data')->nullable();
             $table->date('ended_at')->nullable();
         });
     }

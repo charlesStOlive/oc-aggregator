@@ -16,8 +16,11 @@ columns:
     column:
         label: waka.agg::aggeable.column
         searchable: true
-    value:
-        label: waka.agg::aggeable.value
+    count:
+        label: waka.agg::aggeable.count
+        searchable: true
+    sum:
+        label: waka.agg::aggeable.sum
         searchable: true
     ended_at:
         label: waka.agg::aggeable.ended_at
