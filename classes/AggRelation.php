@@ -53,7 +53,6 @@ class AggRelation
         $yearStart = $this->config['start_date']['y'];
         $monthStart = $this->config['start_date']['m'];
         return Carbon::createFromDate($yearStart, $monthStart, 1);
-
     }
     public function getEndAt()
     {
@@ -137,7 +136,6 @@ class AggRelation
             //trace_log("Nombre de ligne à supprimer");
             //trace_log($olderAggRequest->count());
             $olderAggRequest->delete();
-
         }
         $injectChuncked = array_chunk($injectObject, 1000);
         foreach ($injectChuncked as $inject) {
@@ -173,7 +171,6 @@ class AggRelation
         foreach ($uniqueObjectInjection as $key => $unique) {
             $this->class::find($key)->unique()->updateOrCreate([], $unique);
         }
-
     }
     public function getPeriodeKey()
     {
@@ -188,5 +185,4 @@ class AggRelation
         $this->aggPeriode = new AggPeriode($this->config['periodes'][$key], $key, $this->start_at, $this->end_at);
         return $this->aggPeriode;
     }
-
 }

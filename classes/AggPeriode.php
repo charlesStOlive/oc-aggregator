@@ -28,7 +28,6 @@ class AggPeriode
         // trace_log($config);
         // trace_log($this->start_at);
         // trace_log($this->end_at);
-
     }
 
     public function listPeriode(Carbon $start_at = null, Carbon $end_at = null)
@@ -84,7 +83,6 @@ class AggPeriode
                 array_push($result, $obj);
                 $sub_start_at->addQuarter();
             }
-
         }
 
         if ($this->periode == 'month') {
@@ -109,7 +107,6 @@ class AggPeriode
                 array_push($result, $obj);
                 $sub_start_at->addMonth();
             }
-
         }
 
         if ($this->periode == 'week') {
@@ -138,7 +135,6 @@ class AggPeriode
                 array_push($result, $obj);
                 $sub_start_at->addWeek();
             }
-
         }
 
         return $result;
@@ -163,7 +159,6 @@ class AggPeriode
             foreach ($valueType as $key => $value) {
                 $date = Carbon::now();
                 if ($value != 'now' && $value) {
-
                     if ($this->periode == 'year') {
                         $date->subYear($value);
                     }
@@ -181,13 +176,11 @@ class AggPeriode
                     $result[$keyType] = $key;
                 }
             }
-
         }
         if (count($result)) {
             return $result;
         } else {
             return false;
         }
-
     }
 }

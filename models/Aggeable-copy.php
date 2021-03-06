@@ -82,6 +82,5 @@ class Aggeable extends Model
         //trace_log(get_class($query));
         //trace_log($query->first()->toArray());
         return $query->first();
-        
     }
 }

@@ -75,7 +75,6 @@ class Aggregate extends ControllerBehavior
         $this->vars['aggregateClass'] = $aggregateClass;
         $this->vars['countAll'] = $countAll;
         return $this->makePartial('$/waka/agg/behaviors/aggregate/_aggregate_popup.htm');
-
     }
 
     public function onAggregateValidation()
@@ -117,7 +116,6 @@ class Aggregate extends ControllerBehavior
             }
         }
         \Flash::info("Le calcul des agrégation est en cours, vous pouvez verifier la progression des calculs dans REGLAGES->TACHES");
-
     }
 
     public function onAggregateOne($modelId, $aggregateClass, $aggClass = null)
@@ -133,5 +131,4 @@ class Aggregate extends ControllerBehavior
         $jobId = \Queue::push($aggClass . '@fire', ['class' => $aggregateClass, 'modelId' => $modelId]);
         \Event::fire('job.create.tag', [$jobId, 'Agrégation en attente de calcul']);
     }
-
 }

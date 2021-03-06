@@ -23,7 +23,5 @@ class AggQueue
             \Event::fire('job.end.agg', [$job]);
             $job->delete();
         }
-
     }
-
 }

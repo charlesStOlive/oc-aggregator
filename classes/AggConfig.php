@@ -83,5 +83,4 @@ class AggConfig
     {
         return $this->aggRelation = new AggRelation($this->relationArray, $key, $this->class);
     }
-
 }

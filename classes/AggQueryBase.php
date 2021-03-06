@@ -10,6 +10,5 @@ class AggQueryBase
         $r = 'SUM(' . $column['column'] . ') as ' . $column['column'];
         array_push($dbr, $r);
         return implode(",", $dbr);
-
     }
 }

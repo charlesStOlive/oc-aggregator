@@ -122,5 +122,4 @@ class Aggeable extends Model
     /**
      * OTHERS
      */
-    
 }

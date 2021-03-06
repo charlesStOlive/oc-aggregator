@@ -122,5 +122,4 @@ class AggeableLog extends Model
     /**
      * OTHERS
      */
-
 }

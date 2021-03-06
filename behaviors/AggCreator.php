@@ -60,5 +60,4 @@ class AggCreator extends ControllerBehavior
             \Event::fire('job.create.agg', [$jobId, 'Import lot agrégation ']);
         }
     }
-
 }

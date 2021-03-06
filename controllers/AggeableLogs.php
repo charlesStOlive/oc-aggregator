@@ -24,6 +24,4 @@ class AggeableLogs extends Controller
         BackendMenu::setContext('October.System', 'system', 'settings');
         SettingsManager::setContext('Waka.Agg', 'AggeableLogs');
     }
-
 }
-
