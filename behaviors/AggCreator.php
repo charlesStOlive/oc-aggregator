@@ -19,7 +19,7 @@ class AggCreator extends ControllerBehavior
     public function onAggregate()
     {
         $modelId = post('modelId');
-        $class = post('model');
+        $class = post('modelClass');
 
         $ds = new DataSource($class, 'class');
         //Uniquement pour l'aggrégation manuel d'un model on vide tout puisque tout sera recalculé.
@@ -32,32 +32,12 @@ class AggCreator extends ControllerBehavior
     public function onAggregateAll()
     {
 
-        $class = post('model');
-        //trace_log($class);
-        $ds = new DataSource($class, 'class');
-        $aggConfig = $ds->getAggConfig();
+        $class = post('modelClass');
 
-        $models = $class::get(['id']);
-        $modelsChunk = $models->chunk($aggConfig->chunk);
-
-        $today = Carbon::now();
-
-        $aggLog = AggeableLog::create([
-            'taken_at' => $today,
-            'data_source' => $ds->code,
-            'parts' => $modelsChunk->count(),
-        ]);
-
-        foreach ($modelsChunk as $models) {
-            $datas = [
-                'class' => $class,
-                'ids' => $models->pluck('id')->toArray(),
-                'logId' => $aggLog->id,
-            ];
-            //trace_log($datas);
-            //trace_log('Lanvement queue');
-            $jobId = \Queue::push('\Waka\Agg\Classes\AggQueue@fire', $datas);
-            \Event::fire('job.create.agg', [$jobId, 'Import lot agrégation ']);
-        }
+        $job = new \Waka\Agg\Jobs\AggJob($class);
+        $jobManager = \App::make('Waka\Wakajob\Classes\JobManager');
+        $jobManager->dispatch($job, "Aggrégations");
+        $this->vars['jobId'] = $job->jobId;
+        return $this->makePartial('$/waka/wakajob/controllers/jobs/_confirm_popup.htm');
     }
 }
