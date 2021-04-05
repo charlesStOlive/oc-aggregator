@@ -89,7 +89,7 @@ class AggJob implements WakajobQueueJob
         /**
          * travail preparatoire sur les donnes
          */
-        trace_log("le job commence");
+        //trace_log("le job commence");
         $modelClass = $this->model;
 
         $ds = new DataSource($modelClass, 'class');
@@ -114,7 +114,7 @@ class AggJob implements WakajobQueueJob
         // Fin inistialisation
         try {
             foreach ($modelsChunk as $models) {
-                trace_log("debut de loop");
+                //trace_log("debut de loop");
                 if ($jobManager->checkIfCanceled($this->jobId)) {
                         $jobManager->failJob($this->jobId);
                         break;
@@ -128,10 +128,10 @@ class AggJob implements WakajobQueueJob
 
                 $aggConfig = $ds->getAggConfig();
                 $aggConfig->setLogId($aggLog->id);
-                trace_log("LaunchAll");
-                trace_log($ids);
+                //trace_log("LaunchAll");
+                //trace_log($ids);
                 $aggConfig->launchAll($ids);
-                trace_log("fin launchAll");
+                //trace_log("fin launchAll");
                 $loop += $this->chunk;
                 $jobManager->updateJobState($this->jobId, $loop);
             }
