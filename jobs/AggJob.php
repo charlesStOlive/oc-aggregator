@@ -9,7 +9,7 @@ namespace Waka\Agg\Jobs;
 use Waka\Wakajob\Classes\JobManager;
 use Waka\Wakajob\Classes\RequestSender;
 use Waka\Wakajob\Contracts\WakajobQueueJob;
-use October\Rain\Database\Model;
+use Winter\Storm\Database\Model;
 use Viamage\CallbackManager\Models\Rate;
 use Waka\Segator\Classes\TagCreator;
 use Waka\Utils\Classes\DataSource;

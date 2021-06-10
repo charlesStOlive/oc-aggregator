@@ -78,7 +78,7 @@ class AggRelation
         $periodes = $this->getAggPeriode($key);
         $listesPeriodes = $periodes->listPeriode();
         $injectObject = [];
-        $uniqueObject = new \October\Rain\Support\Collection();
+        $uniqueObject = new \Winter\Storm\Support\Collection();
 
         $olderAggRequest = Aggeable::where('aggeable_type', $this->morphedName)
             ->whereIn('aggeable_id', $ids)
