@@ -21,7 +21,7 @@ class AggCreator extends ControllerBehavior
         $modelId = post('modelId');
         $class = post('modelClass');
 
-        $ds = new DataSource($class, 'class');
+        $ds =  \DataSources::findByClass($class);
         //Uniquement pour l'aggrégation manuel d'un model on vide tout puisque tout sera recalculé.
         Aggeable::where('aggeable_type', $ds->code)->where('aggeable_id', $modelId)->delete();
 

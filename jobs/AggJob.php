@@ -92,7 +92,7 @@ class AggJob implements WakajobQueueJob
         //trace_log("le job commence");
         $modelClass = $this->model;
 
-        $ds = new DataSource($modelClass, 'class');
+        $ds = \DataSources::findByClass($modelClass);
         $aggConfig = $ds->getAggConfig();
 
         $models = $modelClass::get(['id']);

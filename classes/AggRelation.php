@@ -31,7 +31,7 @@ class AggRelation
         $this->morphedName = $this->config['morphedName'];
         $this->class = $class;
         $this->dateColumn = $this->config['dateColumn'];
-        $this->ds = new DataSource($class, 'class');
+        $this->ds = \DataSources::findByClass($class);
         //$this->dateOldestRow = $this->getOldestRow();
     }
 

@@ -14,7 +14,7 @@ class AggQueue
         $ids = $datas['ids'];
         $logId = $datas['logId'];
 
-        $ds = new DataSource($class, 'class');
+        $ds =  \DataSources::findByClass($class);
         $aggConfig = $ds->getAggConfig();
         $aggConfig->setLogId($logId);
         $aggConfig->launchAll($ids);
